@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            --large-space: 50px;
+            --medium-space: calc(var(--large-space) / 2);
+            font-family: sans-serif;
+            font-size: xx-large;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            background: linear-gradient(90deg, indigo 0%, white 100%);
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        fieldset {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        .layout {
+            box-sizing: border-box;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 100px 1fr;
+            justify-items: center;
+        }
+
+        .layout > div {
+            width: 80%;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            padding: var(--medium-space);
+        }
+
+        .logo {
+            color: white;
+            font-weight: bold;
+            font-size: xxx-large;
+            text-shadow: 5px 5px black;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+
+        .content > * {
+            color: white;
+            text-shadow: 3px 3px black;
+            padding-bottom: var(--medium-space);
+        }
+
+        .content > :first-child {
+            font-size: x-large;
+        }
+
+        .side-bar {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .score-board {
+            display: grid;
+            grid-template-columns: 150px repeat(2, minmax(100px, 1fr));
+            background-color: midnightblue;
+        }
+
+        .score-board, .btn {
+            box-shadow: 7px 7px black;
+        }
+
+        .score-board > div {
+            padding: 0.25em;
+            border: 2px solid white;
+            text-align: center;
+        }
+
+        .score-board > :nth-child(3n+1) {
+            text-align: start;
+        }
+
+        #min-extreme, #avg-extreme {
+            color: green;
+        }
+
+        #max-extreme, #misses-extreme {
+            color: red;
+        }
+
+        .play-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--medium-space);
+        }
+
+        .circle {
+            width: 425px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: xxx-large;
+            text-align: center;
+            white-space: pre-line;
+            user-select: none;
+            overflow-wrap: break-word;
+            background-color: midnightblue;
+            box-shadow: 10px 10px black;
+            border: 5px dashed white;
+            border-radius: 50%;
+        }
+
+        .btn {
+            width: 50%;
+            height: var(--large-space);
+            border-radius: calc(var(--large-space) / 2);
+        }
+
+        [role="tooltip"] {
+            font-size: medium;
+            visibility: hidden;
+            position: absolute;
+            left: 25px;
+            background: black;
+            color: white;
+            padding: 0.5em;
+            border-radius: 0.5em;
+        }
+
+        [aria-describedby]:hover + [role="tooltip"],
+        [aria-describedby]:focus + [role="tooltip"],
+        [role="tooltip"]:hover,
+        [role="tooltip"]:focus {
+            visibility: visible;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="layout">
+    <div class="header">
+        <div class="logo">
+            RE-FLEX GAME
+        </div>
+    </div>
+    <div class="content">
+        <div class="side-bar">
+            <div>
+                <div>
+                    <label for="attempts">Attempts</label>
+                </div>
+                <input id="attempts" type="number" min="5" max="20"/>
+            </div>
+            <div class="position-relative">
+                <div aria-describedby="score-board-tooltip" class="score-board">
+                    <div>Score</div>
+                    <div>Best</div>
+                    <div>Current</div>
+                    <div>Min</div>
+                    <div id="min-extreme"></div>
+                    <div id="min-current"></div>
+                    <div>Avg</div>
+                    <div id="avg-extreme"></div>
+                    <div id="avg-current"></div>
+                    <div></div>
+                    <div>Worst</div>
+                    <div></div>
+                    <div>Max</div>
+                    <div id="max-extreme"></div>
+                    <div id="max-current"></div>
+                    <div>Miss clicks</div>
+                    <div id="misses-extreme"></div>
+                    <div id="misses-current"></div>
+                </div>
+                <div role="tooltip" id="score-board-tooltip">Scores in milliseconds.</div>
+            </div>
+
+            <fieldset class="position-relative" id="mode">Mode
+                <div>
+                    <input type="radio" id="mouse" name="mode" value="mouse"/>
+                    <label for="mouse">Mouse</label>
+                </div>
+
+                <div aria-describedby="mode-tooltip">
+                    <input type="radio" id="keyboard" name="mode" value="keyboard"/>
+                    <label for="keyboard">Keyboard</label>
+                </div>
+                <div role="tooltip" id="mode-tooltip">Press any key.</div>
+
+            </fieldset>
+        </div>
+        <div class="play-area">
+            <div class="circle" id="circle">
+                <div>Click "Start" to play</div>
+            </div>
+            <button class="btn" id="btn">Start</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
