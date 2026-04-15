@@ -61,7 +61,7 @@ const run = async () => {
     }
     readyTime = Date.now();
     ready = true;
-    setElement(circle, "Click", {backgroundColor: "chartreuse"});
+    setElement(circle, "Click", {backgroundColor: "lime"});
 };
 
 const restart = () => {
